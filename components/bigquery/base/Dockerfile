@@ -19,7 +19,8 @@ RUN apt-get update -y && apt-get install --no-install-recommends -y -q ca-certif
 
 RUN easy_install pip
 
-RUN pip install google-apitools==0.5.20 \
+RUN pip install \
+        google-apitools==0.5.20 \
         google-auth==1.6.2 \
         google-auth-httplib2==0.0.3 \
         google-cloud-bigquery==1.8.1 \

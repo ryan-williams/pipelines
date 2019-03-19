@@ -174,7 +174,7 @@ def make_preprocessing_fn(schema):
 
 def make_tft_input_metadata(schema):
   """Make a TFT Schema object
-  In the tft framework, this is where default values are recoreded for training.
+  In the tft framework, this is where default values are recorded for training.
   Args:
     schema: schema list of training data.
   Returns:

@@ -21,4 +21,3 @@ cp ../../third_party_licenses.csv ./build
 
 docker build -t ml-pipeline-bigquery-base .
 rm -rf ./build
-

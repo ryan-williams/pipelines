@@ -25,7 +25,11 @@ Preprocessing and model analysis use [Apache Beam](https://beam.apache.org/).
 
 When run with the `cloud` mode (instead of the `local` mode), those steps use [Google Cloud DataFlow](https://beam.apache.org/) for running the Beam pipelines.
 
-Therefore, you must enable the DataFlow API for the given GCP project if you want to use `cloud` as the mode for either preprocessing or analysis. See the [guide to enabling the DataFlow API](https://cloud.google.com/endpoints/docs/openapi/enable-api).
+Therefore, you must enable the DataFlow API for the given GCP project if you want to use `cloud` as the mode for either preprocessing or analysis. [You can enable the DataFlow API](https://cloud.google.com/endpoints/docs/openapi/enable-api) with:
+
+```
+gcloud services enable dataflow.googleapis.com
+```
 
 ## Compiling the pipeline template
 
