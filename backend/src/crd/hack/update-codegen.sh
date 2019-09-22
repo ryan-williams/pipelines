@@ -21,7 +21,7 @@ set -o errexit
 set -o nounset
 set -o pipefail
 
-SCRIPT_ROOT=$(dirname ${BASH_SOURCE})
+SCRIPT_ROOT="$(dirname ${BASH_SOURCE})"
 echo "SCRIPT_ROOT is $SCRIPT_ROOT"
 CODEGEN_PKG=${SCRIPT_ROOT}/../../../../vendor/k8s.io/code-generator
 echo "CODEGEN_PKG is $CODEGEN_PKG"

@@ -26,7 +26,7 @@ Generate the API client code from the API specification:
 
 ### Running ScheduledWorkflow controller from the command line.
 
-The following assumes that your Kubernetes configuration file is located at '$HOME/.kube/config'.
+The following assumes that your Kubernetes configuration file is located at `$HOME/.kube/config`.
 
 To create the resource for the CRD, execute:
 
@@ -161,7 +161,7 @@ Status:
 
 ### Running Viewer controller from the command line.
 
-The following assumes that your Kubernetes configuration file is located at '$HOME/.kube/config'.
+The following assumes that your Kubernetes configuration file is located at `$HOME/.kube/config`.
 
 To create the resource for the CRD, execute:
 
