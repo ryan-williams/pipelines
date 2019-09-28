@@ -1,0 +1,5 @@
+FROM python:3.5.7
+
+RUN pip3 install https://storage.googleapis.com/ml-pipeline/release/0.1.30/kfp.tar.gz
+COPY ./swf_kfp_runner.py /
+COPY ./coin.tar.gz /pipeline.tar.gz
