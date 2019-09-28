@@ -27,8 +27,8 @@ import (
 const (
 	successSynced                = "Synced"
 	failedSynced                 = "Failed"
-	messageResourceSuccessSynced = "Scheduled workflow synced successfull"
-	messageResourceFailedSynced  = "Schedulde workflow synced failed"
+	messageResourceSuccessSynced = "Scheduled workflow sync success"
+	messageResourceFailedSynced  = "Schedulde workflow sync failure"
 )
 
 // KubeClient is a client to call the core Kubernetes APIs.

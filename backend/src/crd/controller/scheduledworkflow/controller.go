@@ -50,7 +50,7 @@ const (
 )
 
 var (
-	// DefaultJobBackOff is the max backoff period
+	// DefaultJobBackOff is the default backoff period
 	DefaultJobBackOff = 10 * time.Second
 	// MaxJobBackOff is the max backoff period
 	MaxJobBackOff = 360 * time.Second

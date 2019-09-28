@@ -15,7 +15,7 @@
 # limitations under the License.
 
 
-# The scripts creates a the KF Pipelines API python package.
+# This script creates the KF Pipelines API python package.
 # Requirements: jq and Java
 # To install the prerequisites run the following:
 #
