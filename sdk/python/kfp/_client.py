@@ -279,7 +279,7 @@ class Client(object):
     """
     return self._pipelines_api.list_pipelines(page_token=page_token, page_size=page_size, sort_by=sort_by)
 
-  def run_pipeline(self, experiment_id, job_name, pipeline_package_path=None, params={}, pipeline_id=None):
+  def run_pipeline(self, experiment_id, job_name, pipeline_package_path=None, params=None, pipeline_id=None):
     """Run a specified pipeline.
 
     Args:
@@ -293,6 +293,8 @@ class Client(object):
       A run object. Most important field is id.
     """
 
+    if params is None:
+      params = {}
     pipeline_json_string = None
     if pipeline_package_path:
       pipeline_obj = self._extract_pipeline_yaml(pipeline_package_path)
