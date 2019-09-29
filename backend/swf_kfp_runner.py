@@ -1,33 +1,52 @@
 
 import argparse
 from datetime import datetime as dt
+from kfp import Client
+from os.path import join as path
+from tempfile import mkdtemp
+import yaml
+
 
 parser = argparse.ArgumentParser()
-parser.add_argument('datetime', help='Datetime to pass to the provided Kubeflow Pipeline')
+parser.add_argument('--pipeline_yaml', help='Kubeflow Pipeline specification (in YAML format) to run')
+parser.add_argument('--datetime', required=False, help='Datetime to pass to the provided Kubeflow Pipeline')
+parser.add_argument('--name', help='Name of this pipeline, for use in experiment and run names')
 parser.add_argument(
   '-t', '--timeout',
   default=60*60*24,
   type=int,
   help='Number of seconds to wait for pipeline to finish running'
 )
+
 args = parser.parse_args()
-pipeline = 'pipeline.tar.gz'
+
 fmt = '%Y%m%d-%H:%M:%S'
-datetime = dt.strptime(args.datetime, fmt)
+if args.datetime:
+  datetime_str = args.datetime
+  datetime = dt.strptime(args.datetime, fmt)
+else:
+  datetime = dt.now()
+  datetime_str = datetime.strftime(fmt)
+
+pipeline_yaml = args.pipeline_yaml
+pipeline = yaml.safe_load(pipeline_yaml)
+tmp = mkdtemp()
+pipeline_path = path(tmp, 'pipeline.yaml')
+with open(pipeline_path, 'w') as f:
+  f.write(pipeline_yaml)
+
+name = args.name
 timeout = args.timeout
 
-from kfp import Client
 client = Client()
 
-experiment_name = 'swf-%s' % pipeline
+experiment_name = 'swf-%s' % name
 experiment = client.create_experiment(name=experiment_name)
 
-datetime_str = datetime.strftime(fmt)
 run = client.run_pipeline(
   experiment.id,
-  '%s_%s' % (pipeline, datetime_str),
-  pipeline,
-  params={ 'datetime': datetime_str }
+  '%s_%s' % (name, datetime_str),
+  pipeline_path,
 )
 
 client.wait_for_run_completion(run.id, timeout=timeout)
