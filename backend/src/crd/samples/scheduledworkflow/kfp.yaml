@@ -20,6 +20,7 @@ spec:
   description: ""
   enabled: true
   maxHistory: 10
+  maxConcurrency: 10
   trigger:
     cronSchedule:
       cron: "/10 * * * * *"
