@@ -2,9 +2,7 @@
 import argparse
 from datetime import datetime as dt
 from kfp import Client
-from os.path import join as path
-from tempfile import mkdtemp
-import yaml
+from tempfile import NamedTemporaryFile
 
 
 parser = argparse.ArgumentParser()
@@ -29,24 +27,22 @@ else:
   datetime_str = datetime.strftime(fmt)
 
 pipeline_yaml = args.pipeline_yaml
-pipeline = yaml.safe_load(pipeline_yaml)
-tmp = mkdtemp()
-pipeline_path = path(tmp, 'pipeline.yaml')
-with open(pipeline_path, 'w') as f:
-  f.write(pipeline_yaml)
-
 name = args.name
 timeout = args.timeout
 
-client = Client()
+with NamedTemporaryFile(suffix='pipeline.yaml') as f:
+  f.write(pipeline_yaml.encode())
+  pipeline_path = f.name
 
-experiment_name = 'swf-%s' % name
-experiment = client.create_experiment(name=experiment_name)
+  client = Client()
 
-run = client.run_pipeline(
-  experiment.id,
-  '%s_%s' % (name, datetime_str),
-  pipeline_path,
-)
+  experiment_name = 'swf-%s' % name
+  experiment = client.create_experiment(name=experiment_name)
+
+  run = client.run_pipeline(
+    experiment.id,
+    '%s_%s' % (name, datetime_str),
+    pipeline_path,
+  )
 
 client.wait_for_run_completion(run.id, timeout=timeout)
