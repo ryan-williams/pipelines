@@ -43,7 +43,7 @@ spec:
               - name: datetime
               - name: pipeline_yaml
           container:
-            image: swf-kfp:3
+            image: runsascoded/kfp:swf
             command: [ python, swf_kfp_runner.py ]
             args: [
               "--datetime", "{{inputs.parameters.datetime}}",
