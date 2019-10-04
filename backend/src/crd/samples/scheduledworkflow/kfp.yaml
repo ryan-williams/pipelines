@@ -27,7 +27,7 @@ spec:
   workflow:
     parameters:
       - name: datetime
-        value: "[[ScheduledTime.20060102-15:04:05]]"
+        value: "[[ScheduledTime.2006-01-02T15:04:05Z]]"
       - name: pipeline_yaml
         value: ""
     spec:

@@ -18,7 +18,7 @@ parser.add_argument(
 
 args = parser.parse_args()
 
-fmt = '%Y%m%d-%H:%M:%S'
+fmt = '%Y-%m-%dT%H:%M:%SZ'
 if args.datetime:
   datetime_str = args.datetime
   datetime = dt.strptime(args.datetime, fmt)
