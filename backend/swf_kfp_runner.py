@@ -43,6 +43,7 @@ with NamedTemporaryFile(suffix='pipeline.yaml') as f:
     experiment.id,
     '%s_%s' % (name, datetime_str),
     pipeline_path,
+    params={ 'datetime': datetime_str },
   )
 
 client.wait_for_run_completion(run.id, timeout=timeout)
