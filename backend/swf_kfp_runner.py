@@ -9,6 +9,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument('--pipeline_yaml', help='Kubeflow Pipeline specification (in YAML format) to run')
 parser.add_argument('--datetime', required=False, help='Datetime to pass to the provided Kubeflow Pipeline')
 parser.add_argument('--name', help='Name of this pipeline, for use in experiment and run names')
+parser.add_argument('--timestamp_param', required=False, help='If the pipeline should take the "scheduled time" as a parameter, pass that parameter\'s name here')
 parser.add_argument(
   '-t', '--timeout',
   default=60*60*24,
@@ -29,6 +30,11 @@ else:
 pipeline_yaml = args.pipeline_yaml
 name = args.name
 timeout = args.timeout
+timestamp_param = args.timestamp_param
+params = None
+if timestamp_param:
+  params = {}
+  params[timestamp_param] = datetime_str
 
 with NamedTemporaryFile(suffix='pipeline.yaml') as f:
   f.write(pipeline_yaml.encode())
@@ -43,6 +49,7 @@ with NamedTemporaryFile(suffix='pipeline.yaml') as f:
     experiment.id,
     '%s_%s' % (name, datetime_str),
     pipeline_path,
+    params=params,
   )
 
 client.wait_for_run_completion(run.id, timeout=timeout)
