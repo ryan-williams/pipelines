@@ -31,9 +31,8 @@ pipeline_yaml = args.pipeline_yaml
 name = args.name
 timeout = args.timeout
 timestamp_param = args.timestamp_param
-params = None
+params = {}
 if timestamp_param:
-  params = {}
   params[timestamp_param] = datetime_str
 
 with NamedTemporaryFile(suffix='pipeline.yaml') as f:
@@ -44,7 +43,7 @@ with NamedTemporaryFile(suffix='pipeline.yaml') as f:
 
   experiment_name = 'swf-%s' % name
   experiment = client.create_experiment(name=experiment_name)
-
+  print('params: %s' % params)
   run = client.run_pipeline(
     experiment.id,
     '%s_%s' % (name, datetime_str),
